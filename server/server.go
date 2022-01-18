@@ -87,7 +87,9 @@ func (s *Server) HandleLocation(w http.ResponseWriter, r *http.Request) *appErro
 		io.WriteString(w, string(m))
 
 	case http.MethodDelete:
-		s.deleteLocation(orderId)
+		if ok, err := s.deleteLocation(orderId); !ok {
+			return err
+		}
 	}
 
 	return nil
